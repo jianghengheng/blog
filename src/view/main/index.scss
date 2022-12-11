@@ -1,0 +1,184 @@
+.trm-banner {
+    width: 100%;
+    height: 560px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 0 0 20px 20px;
+    box-shadow: var(--box-shadow2, 0 2px 4px -2px rgba(0, 0, 0, .15));
+
+    .trm-banner-cover {
+        z-index: -1;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .trm-banner-content {
+        padding-top: 80px;
+        z-index: 999;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .trm-overlay {
+        background-color: rgba(10, 15, 20, .2);
+    }
+
+    .container {
+        position: relative;
+        width: 100vw;
+        height: 100%;
+    }
+
+    .textContent {
+        position: absolute;
+        right: 40%;
+        top: 25%;
+
+    }
+
+    .trm-scroll-hint {
+        margin-bottom: 20px;
+        position: relative;
+        height: 38px;
+        width: 24px;
+        border: solid 2px #fcfcfe;
+        border-radius: 15px;
+    }
+
+    .trm-scroll-hint-frame {
+        position: absolute;
+        right: -135%;
+        bottom: 0;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .trm-scroll-hint::after {
+        content: '';
+        height: 4px;
+        width: 4px;
+        border-radius: 50%;
+        background-color: #fcfcfe;
+        position: absolute;
+        top: 8px;
+        left: calc(50% - 2px);
+
+        animation: mouse 1s infinite;
+    }
+
+    .trm-label {
+        display: block;
+        white-space: nowrap;
+        position: absolute;
+        bottom: 40px;
+        color: #fcfcfe;
+        transform: rotate(90deg);
+    }
+
+    @keyframes mouse {
+
+        0% {
+
+            top: 0;
+
+        }
+
+
+
+        100% {
+            opacity: 0;
+            top: 85%,
+
+
+        }
+
+    }
+}
+
+.container {
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+
+    .left {
+        width: 41.55%;
+    }
+
+    .right {
+        width: 70%;
+        box-sizing: border-box;
+        padding: 0 40px;
+        margin-top: -80px;
+        z-index: 2;
+
+        .containerinfo {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            z-index: 999999;
+
+            .InfoList {
+                width: 47%;
+                text-align: center;
+                position: relative;
+                background-color: #fcfcfe;
+                border-radius: 10px;
+                padding: 40px;
+                margin-bottom: 40px;
+                box-shadow: 0 2px 4px -2px rgba(0, 0, 0, .15);
+                box-sizing: border-box;
+
+                .name {
+                    line-height: 1.2;
+                    letter-spacing: 0;
+                    font-weight: 800;
+                    color: var(--theme-color, #00283a);
+                    margin-bottom: 0;
+                    margin-top: 0;
+                    font-size: 18px;
+                    .trm-number{
+                        color: #fcfcfe;
+                        margin-left: 5px;
+                        border-radius: 20px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        display: inline-block;
+                        padding: 3px 10px;
+                        transform: translateY(-2px);
+                        background-color: #6062ce;
+                    }
+                }
+            }
+            .InfoList::after{
+                content: '';
+                position: absolute;
+                left: 30px;
+                top: -8px;
+                height: 8px;
+                width: calc(100% - 60px);
+                background-color: var(--theme-bg-color,#fcfcfe);
+                border-radius: 5px 5px 0 0;
+                opacity: .3;
+            }
+        }
+    }
+
+
+    .point {
+        height: 1px;
+        border-bottom: var(--border-dotted, dotted 2px rgba(225, 225, 235, .9));
+        width: 100%;
+        margin: 20px 0;
+    }
+}
