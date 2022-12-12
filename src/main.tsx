@@ -5,6 +5,7 @@ import './assets/style/common.scss'
 import { Provider } from 'react-redux'
 import 'insert-css'
 import 'antd/dist/reset.css';
+import '@wangeditor/editor/dist/css/style.css'
 // import store from './store/index'
 import store from './store'
 import {BrowserRouter} from 'react-router-dom'

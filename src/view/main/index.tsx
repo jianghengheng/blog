@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Col, Layout, Menu, Row, theme } from 'antd';
 import './index.scss'
 import UserInfo from '~/src/components/userInfo';
+import { useNavigate } from 'react-router-dom';
+
 const { Header, Content, Footer } = Layout;
 
-const App: React.FC = () => {
+const App: React.FC<any> = (props) => {
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -31,10 +34,15 @@ const App: React.FC = () => {
         count: 40,
         id: 1
     }])
+    const skipCagegory = () => {
+        navigate('/cagegory')
+    }
     return (
-        <Layout style={{ borderRadius: "10px", backgroundColor: "#ffffff", height: '100vh', overflowY: 'auto' }}>
+        <Layout style={{ borderRadius: "10px", backgroundColor: "#ffffff", height: '100vh', overflowY: 'auto', background: "#f4f5f7" }}>
             <UserInfo scrolltop={scrollTop}></UserInfo>
             <Header style={{ position: 'fixed', top: 0, zIndex: 2, width: '100%', borderRadius: "10px", backgroundColor: "#ffffff", boxShadow: '0 2px 4px 0 rgba(0,0,0,.15)' }}>
+
+
                 <Menu
                     mode="horizontal"
                     defaultSelectedKeys={['2']}
@@ -80,28 +88,11 @@ const App: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className='container'>
-                    <div className='left'></div>
-                    <div className='right'>
-                        <div className='containerinfo'>
-                            {infoList.map((list: any) => (
-                                <div key={list.id} className='InfoList'>
-                                    <div className='name'>{list.name}
-                                        <span className='trm-number'>{list.count}</span>
-                                    </div>
-                                    <div className='point'></div>
-                                    <div style={{ color: '#000' }}>查看分类 <i className='iconfont icon-youjiantou'></i></div>
-                                </div>
-                            ))}
-                        </div>
-                        <div style={{ height: '1000px' }}></div>
-                    </div>
-
-                </div>
+                {props.children}
 
             </Content>
 
-        </Layout>
+        </Layout >
     );
 };
 

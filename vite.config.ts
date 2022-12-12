@@ -31,7 +31,7 @@ export default defineConfig(config=>{
 					rewrite: path => path.replace(new RegExp(`/file`), '')
 				},
 				'/api': {
-					target: 'http://192.168.5.246:8080',
+					target: 'http://192.168.1.34:8080',
 					changeOrigin: true,
 					rewrite: path => path.replace(new RegExp(`/api`), '')
 				}

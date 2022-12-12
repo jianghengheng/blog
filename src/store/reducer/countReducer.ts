@@ -1,17 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { GetCategroyList } from '~/src/api/category'
 
 export interface CounterState {
   value: number,
-  data:any
+  data:any,
+  category:any
 }
 
 const initialState: CounterState = {
   value: 0,
+  category:[],
   data:{
     a:1
   }
 }
+export const fetchHomeMultidataAction = createAsyncThunk("fetch/homemultidata", async () => {
+  const res = await GetCategroyList()
+  return res.data
+})
 
 export const counterSlice = createSlice({
   name: 'counter',
@@ -31,6 +38,12 @@ export const counterSlice = createSlice({
       state.value += action.payload
     },
   },
+  extraReducers: {
+    [fetchHomeMultidataAction.fulfilled](state:CounterState, { payload }) {
+      // 在fulfilled状态下, 将state中的banners和recommends修改为网络请求后的数据
+    state.category=payload
+    }
+  }
 })
 
 // Action creators are generated for each case reducer function

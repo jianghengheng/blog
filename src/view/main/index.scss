@@ -147,7 +147,8 @@
                     margin-bottom: 0;
                     margin-top: 0;
                     font-size: 18px;
-                    .trm-number{
+
+                    .trm-number {
                         color: #fcfcfe;
                         margin-left: 5px;
                         border-radius: 20px;
@@ -160,16 +161,34 @@
                     }
                 }
             }
-            .InfoList::after{
+
+            .InfoList::after {
                 content: '';
                 position: absolute;
                 left: 30px;
                 top: -8px;
                 height: 8px;
                 width: calc(100% - 60px);
-                background-color: var(--theme-bg-color,#fcfcfe);
+                background-color: var(--theme-bg-color, #fcfcfe);
                 border-radius: 5px 5px 0 0;
                 opacity: .3;
+            }
+        }
+
+        .Card {
+            background-color: #fcfcfe;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: rgba(0, 0, 0, .15);
+            .img{
+                width: 100%;
+                 height: 215px;
+            }
+            .title{
+                padding: 40px;
+                box-sizing: border-box;
             }
         }
     }
