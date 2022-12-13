@@ -11,6 +11,7 @@ import { RootState } from '~/src/store'
 import { useSelector } from 'react-redux'
 import ImgCrop from 'antd-img-crop';
 import { RcFile, UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload'
+import { AddArticle } from '~/src/api/article';
 
 function AddModal(props: any, ref: any) {
     const init = useSelector((state: RootState) => state.countReducer)
@@ -19,6 +20,7 @@ function AddModal(props: any, ref: any) {
     const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
     // editor 实例
     const [editor, setEditor] = useState<IDomEditor | null>(null)
+    const [html, setHtml] = useState<string>('')
 
     // 工具栏配置
     const toolbarConfig: Partial<IToolbarConfig> = {}  // TS 语法
@@ -36,6 +38,10 @@ function AddModal(props: any, ref: any) {
             setEditor(null)
         }
     }, [editor])
+    useEffect(() => {
+        setArticleData({ ...articleData, content: html })
+
+    }, [html])
     // 打开对话框
     const addArticle = () => {
         setOpen(true)
@@ -47,8 +53,18 @@ function AddModal(props: any, ref: any) {
     // 添加文章
     const handleOk = async () => {
         const values = await form.validateFields();
-        console.log(articleData);
 
+
+        await AddArticle(articleData)
+        message.success('添加成功')
+        setArticleData({
+            title: "",
+            content: "",
+            fileId: null,
+            categoryName: "",
+            categoryId: null,
+        })
+        setOpen(false)
     }
     /**上传图片展示 */
     const [imageUrl, setImageUrl] = useState<string>();
@@ -99,6 +115,13 @@ function AddModal(props: any, ref: any) {
             }
         })
     }
+    const EditorChange = (e: any) => {
+        console.log(e.getHtml());
+
+        setHtml(e.getHtml())
+
+
+    }
     const uploadButton = (
         <div>
             {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -114,6 +137,16 @@ function AddModal(props: any, ref: any) {
             cancelText="取消"
             okText='添加'
             onOk={handleOk}
+            onCancel={() => {
+                setArticleData({
+                    title: "",
+                    content: "",
+                    fileId: null,
+                    categoryName: "",
+                    categoryId: null,
+                })
+                setOpen(false)
+            }}
             confirmLoading={confirmLoading}
 
         >
@@ -136,7 +169,6 @@ function AddModal(props: any, ref: any) {
                     label="类型"
                     name="category"
                     rules={[{ required: true, message: '请选择文章类型' }]}
-
                 >
                     <Select
                         fieldNames={{ label: 'category', value: 'id', options: init.category }}
@@ -173,9 +205,9 @@ function AddModal(props: any, ref: any) {
             />
             <Editor
                 defaultConfig={editorConfig}
-                value={articleData.content}
+                value={html}
                 onCreated={setEditor}
-                onChange={editor => setArticleData({ ...articleData, ...{ content: editor.getHtml() } })}
+                onChange={EditorChange}
                 mode="default"
                 style={{ height: '400px', overflowY: 'hidden' }}
             />
