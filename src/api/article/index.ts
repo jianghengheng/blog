@@ -1,10 +1,15 @@
 import axios from '../../axios/index'
 enum URL {
 
-    AddArticle = '/addArticle'
+    AddArticle = '/addArticle',
+    GetArticle='/getArticle'
 }
 
-// 获取公告列表
+//添加文章
 export function AddArticle(data: any) {
     return axios.post(URL.AddArticle, { ...data });
+}
+//获取文章
+export function GetArticle() {
+    return axios.get(URL.GetArticle, );
 }

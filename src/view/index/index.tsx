@@ -5,22 +5,30 @@ import { Button, Col, Row } from 'antd'
 import Index from '../main/index'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '~/src/store'
+import { GetArticle } from '~/src/api/article'
 // 主页
 function Main() {
+  const [ArticleList, setArticleList] = useState<any>()
+  useEffect(() => {
+    GetArticle().then(res => {
+
+      setArticleList(res.data)
+
+
+    })
+  }, [])
   const navigate = useNavigate()
-  const [infoList, setInfo] = useState<Array<any>>([{
-    name: "记录类",
-    href: "",
-    count: 20,
-    id: 0
-  }, {
-    name: "创作类",
-    href: "",
-    count: 40,
-    id: 1
-  }])
+  const init = useSelector((state: RootState) => state.countReducer)
+
+
+
+
   const skipCagegory = () => {
-    navigate('/cagegory')
+    console.log(Array.isArray(ArticleList));
+
+    // navigate('/cagegory')
   }
   return (
     <div>
@@ -29,13 +37,13 @@ function Main() {
           <div className='left'></div>
           <div className='right'>
             <div className='containerinfo'>
-              {infoList.map((list: any) => (
+              {init.infoList.map((list: any) => (
                 <div key={list.id} className='InfoList'>
-                  <div className='name'>{list.name}
-                    <span className='trm-number'>{list.count}</span>
+                  <div className='name'>{list.category}
+                    <span className='trm-number'>{list.num}</span>
                   </div>
                   <div className='point'></div>
-                  <div onClick={skipCagegory} style={{ color: '#000' }}>查看分类 <i className='iconfont icon-youjiantou'></i></div>
+                  <div onClick={skipCagegory} style={{ color: '#000', }}>查看分类 <i className='iconfont icon-youjiantou'></i></div>
                 </div>
               ))}
             </div>
@@ -46,21 +54,24 @@ function Main() {
               <div className='point'></div>
             </div>
             <Row >
-              <Col span={11}>
-                <div className='Card'>
-                  <div className='img'>
-                    <img width={"100%"} height={"100%"} src="https://img.lkxin.cn/tu/2022/11/14/6371c7efc8e04.png" alt="" />
+
+              {ArticleList?.map((artl: any, index: number) => (
+                <Col span={11} offset={index % 0 == 0 ? 2 : 0}>
+                  <div className='Card'>
+                    <div className='img'>
+                      <img width={"100%"} height={"100%"} src={`/api/download/${artl.fileId}`} alt="" />
+                    </div>
+                    <div className='title'>
+                      <h5>{artl.categoryName}</h5>
+                      <div style={{ marginTop: '20px', fontSize: '20px', color: "#000", fontWeight: 'bolder' }}> {artl.title}</div>
+                      <div className='point'></div>
+                      <div className='time'>{artl.creatTime}</div>
+                    </div>
                   </div>
-                  <div className='title'>
-                    <h5>记录类</h5>
-                    <div style={{ marginTop: '20px', fontSize: '20px', color: "#000", fontWeight: 'bolder' }}> 瀑布流使用虚拟列表性能优化</div>
-                    <div className='point'></div>
-                    <div className='time'>22/11/14
-                      12:05</div>
-                  </div>
-                </div>
-              </Col>
-              <Col span={11} offset={2}>col</Col>
+                </Col>
+              ))}
+
+
             </Row>
           </div>
 

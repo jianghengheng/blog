@@ -23,17 +23,7 @@ const App: React.FC<any> = (props) => {
 
     }
     window.addEventListener('scroll', handleScroll, true)
-    const [infoList, setInfo] = useState<Array<any>>([{
-        name: "记录类",
-        href: "",
-        count: 20,
-        id: 0
-    }, {
-        name: "创作类",
-        href: "",
-        count: 40,
-        id: 1
-    }])
+  
     const skipCagegory = () => {
         navigate('/cagegory')
     }

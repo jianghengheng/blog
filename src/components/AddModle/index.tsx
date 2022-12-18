@@ -1,7 +1,7 @@
 
 
 
-import { Button, Form, Input, Modal, Select, message, Upload } from 'antd'
+import { Button, Form, Input, Modal, Select, message, Upload, Row, Col } from 'antd'
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 // import './index.scss'
@@ -158,44 +158,49 @@ function AddModal(props: any, ref: any) {
 
                 autoComplete="off"
             >
-                <Form.Item
-                    label="标题"
-                    name="title"
-                    rules={[{ required: true, message: '请输入标题' }]}
-                >
-                    <Input value={articleData.title} onChange={(e) => setArticleData({ ...articleData, ...{ title: e.target.value } })} />
-                </Form.Item>
-                <Form.Item
-                    label="类型"
-                    name="category"
-                    rules={[{ required: true, message: '请选择文章类型' }]}
-                >
-                    <Select
-                        fieldNames={{ label: 'category', value: 'id', options: init.category }}
-                        onChange={SelectChange}
-                        options={init.category}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="上传文件"
-                    name="file"
-
-
-                >
-                    <ImgCrop rotate>
-                        <Upload
-                            name="phone"
-                            listType="picture-card"
-                            className="avatar-uploader"
-                            showUploadList={false}
-                            action='/api/Upload'
-                            beforeUpload={beforeUpload}
-                            onChange={handleChange}
+                <Row justify="space-between">
+                    <Col span={19}><Form.Item
+                        label="标题"
+                        name="title"
+                        rules={[{ required: true, message: '请输入标题' }]}
+                    >
+                        <Input value={articleData.title} onChange={(e) => setArticleData({ ...articleData, ...{ title: e.target.value } })} />
+                    </Form.Item>
+                        <Form.Item
+                            label="类型"
+                            name="category"
+                            rules={[{ required: true, message: '请选择文章类型' }]}
                         >
-                            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                        </Upload>
-                    </ImgCrop>
-                </Form.Item>
+                            <Select
+                                fieldNames={{ label: 'category', value: 'id', options: init.category }}
+                                onChange={SelectChange}
+                                options={init.category}
+                            />
+                        </Form.Item></Col>
+                    <Col span={4}>  <Form.Item
+                        label="上传文件"
+                        name="file"
+
+
+                    >
+                        <ImgCrop rotate>
+                            <Upload
+                                name="phone"
+                                listType="picture-card"
+                                className="avatar-uploader"
+                                showUploadList={false}
+                                action='/api/Upload'
+                                beforeUpload={beforeUpload}
+                                onChange={handleChange}
+                            >
+                                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                            </Upload>
+                        </ImgCrop>
+                    </Form.Item></Col>
+
+                </Row>
+
+
             </Form>
             <Toolbar
                 editor={editor}

@@ -4,16 +4,15 @@ import { GetCategroyList } from '~/src/api/category'
 
 export interface CounterState {
   value: number,
-  data:any,
-  category:any
+  infoList: any,
+  category: any
 }
 
 const initialState: CounterState = {
   value: 0,
-  category:[],
-  data:{
-    a:1
-  }
+  category: [],
+  infoList: [],
+
 }
 export const fetchHomeMultidataAction = createAsyncThunk("fetch/homemultidata", async () => {
   const res = await GetCategroyList()
@@ -39,9 +38,19 @@ export const counterSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchHomeMultidataAction.fulfilled](state:CounterState, { payload }) {
+    [fetchHomeMultidataAction.fulfilled](state: CounterState, { payload }) {
       // 在fulfilled状态下, 将state中的banners和recommends修改为网络请求后的数据
-    state.category=payload
+
+      payload.sort(
+        (a: any, b: any) => {
+          a = a.num; b = b.num;
+          if (a < b) { return 1 }
+          else if (a > b) { return -1 }
+          else { return 0 }
+        }
+      )
+      state.infoList = payload.slice(0, 2)
+      state.category = payload
     }
   }
 })
