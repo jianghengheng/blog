@@ -1,0 +1,26 @@
+.rightart {
+    width: 65%;
+    box-sizing: border-box;
+    padding: 0 40px;
+    margin-top: -40px;
+    z-index: 2;
+}
+
+.category {
+    padding: 30px 20px 40px 20px;
+    background-color: #fcfcfe;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    text-align: center;
+
+    .iconfont {
+        margin-bottom: 20px;
+        font-size: 22px;
+        color: #00283a;
+    }
+
+    .name {
+        color: #7b7b7d;
+        font-size: 18px
+    }
+}

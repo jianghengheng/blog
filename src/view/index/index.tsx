@@ -10,7 +10,7 @@ import { RootState } from '~/src/store'
 import { GetArticle } from '~/src/api/article'
 // 主页
 function Main() {
-  const [ArticleList, setArticleList] = useState<any>()
+  const [ArticleList, setArticleList] = useState<any>([])
   useEffect(() => {
     GetArticle().then(res => {
 
@@ -21,14 +21,10 @@ function Main() {
   }, [])
   const navigate = useNavigate()
   const init = useSelector((state: RootState) => state.countReducer)
-
-
-
-
   const skipCagegory = () => {
-    console.log(Array.isArray(ArticleList));
+  
 
-    // navigate('/cagegory')
+     navigate('/cagegory')
   }
   return (
     <div>
@@ -43,7 +39,7 @@ function Main() {
                     <span className='trm-number'>{list.num}</span>
                   </div>
                   <div className='point'></div>
-                  <div onClick={skipCagegory} style={{ color: '#000', }}>查看分类 <i className='iconfont icon-youjiantou'></i></div>
+                  <div onClick={skipCagegory} style={{ color: '#000', cursor:'pointer'}}>查看分类 <i className='iconfont icon-youjiantou'></i></div>
                 </div>
               ))}
             </div>
@@ -56,8 +52,13 @@ function Main() {
             <Row >
 
               {ArticleList?.map((artl: any, index: number) => (
-                <Col span={11} offset={index % 0 == 0 ? 2 : 0}>
-                  <div className='Card'>
+                <Col  key={artl.id} span={11} offset={index % 2 == 0 ? 0 : 2}>
+                  <div className='Card' onClick={() => navigate('/article',{
+                    state:{
+                      id:artl.id
+                    }
+                  })}>
+                   
                     <div className='img'>
                       <img width={"100%"} height={"100%"} src={`/api/download/${artl.fileId}`} alt="" />
                     </div>
