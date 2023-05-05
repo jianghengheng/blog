@@ -22,8 +22,6 @@ function Main() {
   const navigate = useNavigate()
   const init = useSelector((state: RootState) => state.countReducer)
   const skipCagegory = () => {
-  
-
      navigate('/cagegory')
   }
   return (

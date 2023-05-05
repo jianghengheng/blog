@@ -1,6 +1,4 @@
 
-
-
 import { Button, Form, Input, Modal, Select, message, Upload, Row, Col } from 'antd'
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -180,16 +178,14 @@ function AddModal(props: any, ref: any) {
                     <Col span={4}>  <Form.Item
                         label="上传文件"
                         name="file"
-
-
                     >
                         <ImgCrop rotate>
                             <Upload
-                                name="phone"
+                                name="file"
                                 listType="picture-card"
                                 className="avatar-uploader"
                                 showUploadList={false}
-                                action='/api/Upload'
+                                action='/api/file/upload'
                                 beforeUpload={beforeUpload}
                                 onChange={handleChange}
                             >

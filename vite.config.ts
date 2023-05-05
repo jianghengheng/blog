@@ -25,13 +25,9 @@ export default defineConfig(config=>{
 			port: 3200,
 			open: true,
 			proxy: {
-				'/file': {
-					target: 'http://192.168.5.246:9116',
-					changeOrigin: true,
-					rewrite: path => path.replace(new RegExp(`/file`), '')
-				},
+			
 				'/api': {
-					target: 'http://192.168.1.34:8080',
+					target: 'http://localhost:3000/',
 					changeOrigin: true,
 					rewrite: path => path.replace(new RegExp(`/api`), '')
 				}

@@ -19,7 +19,6 @@ function App() {
   return (
     <div>
       {router}
-     
     </div>
   )
 }

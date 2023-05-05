@@ -1,6 +1,4 @@
 
-
-
 import { Button, Card, Col, Row } from 'antd'
 import Index from '../main/index'
 import './index.scss'
@@ -21,7 +19,7 @@ function Article() {
     useEffect(() => {
         GetArticleById(id).then((res) => {
             console.log(res.data);
-            setArticleInfo(res.data)
+            // setArticleInfo(res.data)
         })
     }, [])
     // setArticle(count1.category)
