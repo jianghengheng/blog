@@ -1,6 +1,8 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path';
+import Unocss from 'unocss/vite';
+import { presetUno, presetAttributify, presetIcons } from 'unocss'
 function getSrcPath(srcName = 'src') {
   const rootPath =path.resolve(process.cwd());
 
@@ -18,11 +20,16 @@ export default defineConfig(config=>{
         '@': getSrcPath()
       }
     },
-    plugins: [react()],
+    plugins: [react(),Unocss({ // 使用Unocss
+      presets: [
+        presetUno(),
+        presetAttributify(),
+        presetIcons()],
+    })],
 	
     server: {
 			host: '0.0.0.0',
-			port: 3200,
+			port: 3300,
 			open: true,
 			proxy: {
 			

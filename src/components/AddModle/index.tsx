@@ -3,43 +3,29 @@ import { Button, Form, Input, Modal, Select, message, Upload, Row, Col } from 'a
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 // import './index.scss'
-import { Editor, Toolbar } from '@wangeditor/editor-for-react'
-import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+
 import { RootState } from '~/src/store'
 import { useSelector } from 'react-redux'
 import ImgCrop from 'antd-img-crop';
 import { RcFile, UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload'
 import { AddArticle } from '~/src/api/article';
-
+import MDEditor from '@uiw/react-md-editor';
+// import Vditor from "vditor";
 function AddModal(props: any, ref: any) {
     const init = useSelector((state: RootState) => state.countReducer)
     // 打开文本编辑器
     const [open, setOpen] = useState<boolean>(false);
     const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-    // editor 实例
-    const [editor, setEditor] = useState<IDomEditor | null>(null)
-    const [html, setHtml] = useState<string>('')
+    const [value, setValue] = useState<string | undefined>("");
 
-    // 工具栏配置
-    const toolbarConfig: Partial<IToolbarConfig> = {}  // TS 语法
-    // 编辑器配置
-    const editorConfig: Partial<IEditorConfig> = {    // TS 语法
-
-        placeholder: '请输入内容...',
-    }
     const [form] = Form.useForm();
     // 及时销毁 editor
     useEffect(() => {
-        return () => {
-            if (editor == null) return
-            editor.destroy()
-            setEditor(null)
-        }
-    }, [editor])
-    useEffect(() => {
-        setArticleData({ ...articleData, content: html })
+    }, [])
+    // useEffect(() => {
+    //     setArticleData({ ...articleData, content: value })
 
-    }, [html])
+    // }, [value])
     // 打开对话框
     const addArticle = () => {
         setOpen(true)
@@ -50,7 +36,10 @@ function AddModal(props: any, ref: any) {
     }))
     // 添加文章
     const handleOk = async () => {
+        console.log(value);
+        setArticleData({ ...articleData, content: value })
         const values = await form.validateFields();
+
 
 
         await AddArticle(articleData)
@@ -59,7 +48,7 @@ function AddModal(props: any, ref: any) {
             title: "",
             content: "",
             fileId: null,
-            categoryName: "",
+            category: "",
             categoryId: null,
         })
         setOpen(false)
@@ -69,11 +58,17 @@ function AddModal(props: any, ref: any) {
     /**加载 */
     const [loading, setLoading] = useState(false);
     /**添加文章的数据 */
-    const [articleData, setArticleData] = useState({
+    const [articleData, setArticleData] = useState<{
+        title: string;
+        content: string | undefined;
+        fileId: null
+        category: string
+        categoryId: null
+    }>({
         title: "",
         content: "",
         fileId: null,
-        categoryName: "",
+        category: "",
         categoryId: null,
     })
     /**上传前 */
@@ -98,7 +93,7 @@ function AddModal(props: any, ref: any) {
         if (info.file.status === 'done') {
             // response
             setLoading(false);
-            setImageUrl(`/api/download/${info.file.response}`);
+            setImageUrl(`/api/static/${info.file.response}`);
 
             setArticleData({ ...articleData, ...{ fileId: info.file.response } })
         }
@@ -108,18 +103,12 @@ function AddModal(props: any, ref: any) {
 
         setArticleData({
             ...articleData, ...{
-                categoryName: init.category?.find((res: any) => (res.id == id))?.category,
+                category: init.category?.find((res: any) => (res.id == id))?.category,
                 categoryId: id
             }
         })
     }
-    const EditorChange = (e: any) => {
-        console.log(e.getHtml());
 
-        setHtml(e.getHtml())
-
-
-    }
     const uploadButton = (
         <div>
             {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -140,7 +129,7 @@ function AddModal(props: any, ref: any) {
                     title: "",
                     content: "",
                     fileId: null,
-                    categoryName: "",
+                    category: "",
                     categoryId: null,
                 })
                 setOpen(false)
@@ -198,23 +187,19 @@ function AddModal(props: any, ref: any) {
 
 
             </Form>
-            <Toolbar
-                editor={editor}
-                defaultConfig={toolbarConfig}
-                mode="default"
-                style={{ borderBottom: '1px solid #ccc' }}
+            <MDEditor
+                value={value}
+                onChange={setValue}
             />
-            <Editor
-                defaultConfig={editorConfig}
-                value={html}
-                onCreated={setEditor}
-                onChange={EditorChange}
-                mode="default"
-                style={{ height: '400px', overflowY: 'hidden' }}
-            />
+            {/* <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} /> */}
+
         </Modal>
 
     )
 }
 
 export default forwardRef(AddModal)
+
+
+
+
