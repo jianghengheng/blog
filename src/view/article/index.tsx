@@ -6,7 +6,7 @@ import { useState, useEffect, memo } from 'react'
 
 import { useLocation } from 'react-router-dom'
 import { GetArticleById } from '~/src/api/article'
-
+import MDEditor from '@uiw/react-md-editor';
 // 文章页面
 function Article() {
     const { state: { id } } = useLocation()
@@ -19,7 +19,7 @@ function Article() {
     useEffect(() => {
         GetArticleById(id).then((res) => {
             console.log(res.data);
-            // setArticleInfo(res.data)
+             setArticleInfo(res.data)
         })
     }, [])
     // setArticle(count1.category)
@@ -39,7 +39,7 @@ function Article() {
                             <div className='category'>
 
                                 <div className='iconfont icon-riqi'></div>
-                                <div className='name'>{articleInfo?.creatTime.split(' ')[0]}</div>
+                                <div className='name'>{articleInfo?.category}</div>
 
                             </div>
                         </Col>
@@ -47,7 +47,7 @@ function Article() {
                             <div className='category'>
                                 <div className='iconfont icon-shijian'>
                                 </div>
-                                <div className='name'>{articleInfo?.creatTime.split(' ')[1]}</div>
+                                <div className='name'>{articleInfo?.create_time}</div>
                             </div>
                         </Col>
 
@@ -57,7 +57,8 @@ function Article() {
 
 
                     <Card title={articleInfo.title}>
-                        <div dangerouslySetInnerHTML={{ __html: articleInfo.content }}></div>
+                                <MDEditor.Markdown source={articleInfo?.content} style={{ whiteSpace: 'pre-wrap' }} />
+
                     </Card>
                 </div>
 

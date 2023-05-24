@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path';
 import Unocss from 'unocss/vite';
 import { presetUno, presetAttributify, presetIcons } from 'unocss'
+import postCssPxToRem from "postcss-pxtorem"
 function getSrcPath(srcName = 'src') {
   const rootPath =path.resolve(process.cwd());
 
@@ -18,6 +19,16 @@ export default defineConfig(config=>{
       alias: {
         '~':  path.resolve(process.cwd()),
         '@': getSrcPath()
+      }
+    },
+    css:{
+      postcss:{
+        plugins:[
+          // postCssPxToRem({
+          //   rootValue:16,
+          //   propList:["*"] //需要转化的属性
+          // })
+        ]
       }
     },
     plugins: [react(),Unocss({ // 使用Unocss

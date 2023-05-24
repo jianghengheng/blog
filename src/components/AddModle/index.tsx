@@ -20,12 +20,10 @@ function AddModal(props: any, ref: any) {
 
     const [form] = Form.useForm();
     // 及时销毁 editor
+  
     useEffect(() => {
-    }, [])
-    // useEffect(() => {
-    //     setArticleData({ ...articleData, content: value })
-
-    // }, [value])
+        setArticleData({ ...articleData, content: value })
+    }, [value])
     // 打开对话框
     const addArticle = () => {
         setOpen(true)
@@ -36,14 +34,14 @@ function AddModal(props: any, ref: any) {
     }))
     // 添加文章
     const handleOk = async () => {
-        console.log(value);
-        setArticleData({ ...articleData, content: value })
+    
         const values = await form.validateFields();
-
-
-
+        setArticleData({...articleData, ...{
+            content: value
+        }})
         await AddArticle(articleData)
         message.success('添加成功')
+        setValue('')
         setArticleData({
             title: "",
             content: "",
@@ -111,7 +109,7 @@ function AddModal(props: any, ref: any) {
 
     const uploadButton = (
         <div>
-            {loading ? <LoadingOutlined /> : <PlusOutlined />}
+            {loading ? <LoadingOutlined rev={undefined} /> : <PlusOutlined rev={undefined} />}
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );

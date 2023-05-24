@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './assets/style/common.scss'
 
+
 import { Provider } from 'react-redux'
 import 'insert-css'
 import 'antd/dist/reset.css';

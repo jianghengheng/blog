@@ -58,13 +58,13 @@ function Main() {
                   })}>
                    
                     <div className='img'>
-                      <img width={"100%"} height={"100%"} src={`/api/download/${artl.fileId}`} alt="" />
+                      <img width={"100%"} height={"100%"} src={`/api/static/${artl.fileId}`} alt="" />
                     </div>
                     <div className='title'>
                       <h5>{artl.categoryName}</h5>
                       <div style={{ marginTop: '20px', fontSize: '20px', color: "#000", fontWeight: 'bolder' }}> {artl.title}</div>
                       <div className='point'></div>
-                      <div className='time'>{artl.creatTime}</div>
+                      <div className='time'>{artl.create_time}</div>
                     </div>
                   </div>
                 </Col>

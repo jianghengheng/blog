@@ -18,9 +18,17 @@ export function GetArticle() {
 }
 //通过id 获取文章
 export function GetArticleById(id: number) {
-    return axios.get(baseUrl + URL.GetArticleById + '/' + id,);
+    return axios.get(baseUrl + URL.GetArticleById ,{
+        params:{
+            id
+        }
+    });
 }
 //通过分类id 获取文章
 export function GetArticleByCategoryId(id: number) {
-    return axios.get(baseUrl + URL.GetArticleByCategoryId + '/' + id,);
+    return axios.get(baseUrl + URL.GetArticleByCategoryId ,{
+        params:{
+            id
+        }
+    });
 }
