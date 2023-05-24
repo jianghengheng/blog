@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '~/src/store'
 import { GetArticle } from '~/src/api/article'
+import Comment from '~/src/components/comment/index'
 // 主页
 function Main() {
   const [ArticleList, setArticleList] = useState<any>([])
@@ -22,7 +23,7 @@ function Main() {
   const navigate = useNavigate()
   const init = useSelector((state: RootState) => state.countReducer)
   const skipCagegory = () => {
-     navigate('/cagegory')
+    navigate('/cagegory')
   }
   return (
     <div>
@@ -37,7 +38,7 @@ function Main() {
                     <span className='trm-number'>{list.num}</span>
                   </div>
                   <div className='point'></div>
-                  <div onClick={skipCagegory} style={{ color: '#000', cursor:'pointer'}}>查看分类 <i className='iconfont icon-youjiantou'></i></div>
+                  <div onClick={skipCagegory} style={{ color: '#000', cursor: 'pointer' }}>查看分类 <i className='iconfont icon-youjiantou'></i></div>
                 </div>
               ))}
             </div>
@@ -48,15 +49,15 @@ function Main() {
               <div className='point'></div>
             </div>
             <Row >
-
+              <Comment></Comment>
               {ArticleList?.map((artl: any, index: number) => (
-                <Col  key={artl.id} span={11} offset={index % 2 == 0 ? 0 : 2}>
-                  <div className='Card' onClick={() => navigate('/article',{
-                    state:{
-                      id:artl.id
+                <Col key={artl.id} span={11} offset={index % 2 == 0 ? 0 : 2}>
+                  <div className='Card' onClick={() => navigate('/article', {
+                    state: {
+                      id: artl.id
                     }
                   })}>
-                   
+
                     <div className='img'>
                       <img width={"100%"} height={"100%"} src={`/api/static/${artl.fileId}`} alt="" />
                     </div>

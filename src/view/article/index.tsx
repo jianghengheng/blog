@@ -58,7 +58,6 @@ function Article() {
 
                     <Card title={articleInfo.title}>
                                 <MDEditor.Markdown source={articleInfo?.content} style={{ whiteSpace: 'pre-wrap' }} />
-
                     </Card>
                 </div>
 
