@@ -110,7 +110,7 @@ function AddModal(props: any, ref: any) {
     const uploadButton = (
         <div>
             {loading ? <LoadingOutlined rev={undefined} /> : <PlusOutlined rev={undefined} />}
-            <div style={{ marginTop: 8 }}>Upload</div>
+            <div className='mb-8px'>Upload</div>
         </div>
     );
     return (
@@ -176,7 +176,7 @@ function AddModal(props: any, ref: any) {
                                 beforeUpload={beforeUpload}
                                 onChange={handleChange}
                             >
-                                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                                {imageUrl ? <img src={imageUrl} alt="avatar" className='w-100%'  /> : uploadButton}
                             </Upload>
                         </ImgCrop>
                     </Form.Item></Col>

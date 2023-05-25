@@ -28,9 +28,9 @@ const App: React.FC<any> = (props) => {
         navigate('/cagegory')
     }
     return (
-        <Layout style={{ borderRadius: "10px", backgroundColor: "#ffffff", height: '100vh', overflowY: 'auto', background: "#f4f5f7" }}>
+        <Layout className='rd-10px bgc-#f4f5f7 h-100vh overflow-y-auto'>
             <UserInfo scrolltop={scrollTop}></UserInfo>
-            <Header style={{ position: 'fixed', top: 0, zIndex: 2, width: '100%', borderRadius: "10px", backgroundColor: "#ffffff", boxShadow: '0 2px 4px 0 rgba(0,0,0,.15)' }}>
+            <Header className='bd-10px bgc-#fff w-100%'  style={{ position: 'fixed', top: 0, zIndex: 2,  boxShadow: '0 2px 4px 0 rgba(0,0,0,.15)' }}>
 
 
                 <Menu
@@ -42,7 +42,7 @@ const App: React.FC<any> = (props) => {
                     }))}
                 />
             </Header>
-            <Content className="site-layout" style={{ padding: '0 50px' }}>
+            <Content className="site-layout pt-0 pb-0 pr-50px pl-50px'" >
                 <div className='trm-banner'>
                     <video data-scroll data-scroll-direction data-scroll-speed autoPlay loop muted playsInline className='trm-banner-cover trm-active-el'>
                         <source src="//cdn.moji.com/websrc/video/autumn20190924.mp4" type="video/mp4; " />
@@ -53,17 +53,16 @@ const App: React.FC<any> = (props) => {
                             <div className="textContent">
                                 <div >
                                     <div className="trm-banner-text">
-                                        <div style={{
-                                            color: '#fcfcfe',
+                                        <div className='text-20px mb-20px color-#fcfefe' style={{
                                             textShadow: ' 0 1px 10px rgb(0 0 0 / 30%)',
-                                            fontSize: "20px",
-                                            marginBottom: '20px'
                                         }}>Hi my new friend!</div>
-                                        <h1 style={{
+                                        <h1
+                                        className='mb-30px'
+                                        style={{
                                             color: '#fcfcfe',
                                             textShadow: ' 0 1px 10px rgb(0 0 0 / 30%)',
                                             fontSize: "2.5rem",
-                                            marginBottom: '30px',
+                                           
                                             fontWeight: 'bloder'
                                         }}>树深时见鹿，<br />溪午不闻钟。</h1>
 
