@@ -7,6 +7,7 @@ import { useState, useEffect, memo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { GetArticleById } from '~/src/api/article'
 import MDEditor from '@uiw/react-md-editor';
+import Comment from '~/src/components/comment/index'
 // 文章页面
 function Article() {
     const { state: { id } } = useLocation()
@@ -14,12 +15,12 @@ function Article() {
     const [articleInfo, setArticleInfo] = useState<any>({
         creatTime: "",
         content: "",
-        title:""
+        title: ""
     })
     useEffect(() => {
         GetArticleById(id).then((res) => {
             console.log(res.data);
-             setArticleInfo(res.data)
+            setArticleInfo(res.data)
         })
     }, [])
     // setArticle(count1.category)
@@ -57,8 +58,9 @@ function Article() {
 
 
                     <Card title={articleInfo.title}>
-                                <MDEditor.Markdown source={articleInfo?.content} style={{ whiteSpace: 'pre-wrap' }} />
+                        <MDEditor.Markdown source={articleInfo?.content} style={{ whiteSpace: 'pre-wrap' }} />
                     </Card>
+                    <Comment></Comment>
                 </div>
 
 

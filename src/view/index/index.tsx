@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '~/src/store'
 import { GetArticle } from '~/src/api/article'
-import Comment from '~/src/components/comment/index'
+
 // 主页
 function Main() {
   const [ArticleList, setArticleList] = useState<any>([])
@@ -49,7 +49,7 @@ function Main() {
               <div className='point'></div>
             </div>
             <Row >
-              <Comment></Comment>
+             
               {ArticleList?.map((artl: any, index: number) => (
                 <Col key={artl.id} span={11} offset={index % 2 == 0 ? 0 : 2}>
                   <div className='Card' onClick={() => navigate('/article', {
