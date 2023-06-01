@@ -52,10 +52,8 @@ useEffect(()=>{
                     </Row>
 
 
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                        <h5 style={{
-                            width: '130px', fontSize: '26px', color: '#000'
-                        }}>{init.category[0]?.category}</h5>
+                    <div  className='flex items-center mb-20px'>
+                        <h5 className='w-130px text-26px color-#000' >{init.category[0]?.category}</h5>
                         <div className='point'></div>
                     </div>
                     <Row >
@@ -72,7 +70,7 @@ useEffect(()=>{
                     </div>
                     <div className='title'>
                       <h5>{artl.categoryName}</h5>
-                      <div style={{ marginTop: '20px', fontSize: '20px', color: "#000", fontWeight: 'bolder' }}> {artl.title}</div>
+                      <div className='mt-20px text-20px color-#fff font-bold'> {artl.title}</div>
                       <div className='point'></div>
                       <div className='time'>{artl.create_time}</div>
                     </div>

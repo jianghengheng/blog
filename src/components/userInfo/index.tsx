@@ -22,7 +22,7 @@ const addmodle:any=useRef()
  
   return (
     <>
-      <div className='userInfo' style={{ marginTop: 100 - scrolltop < 54 ? '54px' : scrolltop < 30 ? '100px' : 100 - scrolltop + 'px' }}>
+      <div className='userInfo'   style={{ marginTop: 100 - scrolltop < 54 ? '54px' : scrolltop < 30 ? '100px' : 100 - scrolltop + 'px' }}>
         <div className='trm-mc-header'>
           <div className='trm-avatar' onClick={addArticle}>
             <img className='avatar' src={avator} alt="" />

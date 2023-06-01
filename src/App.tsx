@@ -32,6 +32,8 @@ setRem()
 window.onresize = function () {
   setRem()
 }
+console.log(window.screen.width);
+
 
 function App() {
   const router = useRoutes(routers)

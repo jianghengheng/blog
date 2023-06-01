@@ -5,11 +5,13 @@ import { GetCategroyList } from '~/src/api/category'
 export interface CounterState {
   value: number,
   infoList: any,
-  category: any
+  category: any,
+  isphone:boolean
 }
 
 const initialState: CounterState = {
   value: 0,
+  isphone:false,
   category: [],
   infoList: [],
 

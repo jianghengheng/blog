@@ -42,10 +42,8 @@ function Main() {
                 </div>
               ))}
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-              <h5 style={{
-                width: '130px', fontSize: '26px', color: '#000'
-              }}>最近发布</h5>
+            <div className='mb-20px flex items-center'>
+              <h5 className='w-150px text-26px color-#000' >最近发布</h5>
               <div className='point'></div>
             </div>
             <Row >
@@ -63,7 +61,7 @@ function Main() {
                     </div>
                     <div className='title'>
                       <h5>{artl.categoryName}</h5>
-                      <div style={{ marginTop: '20px', fontSize: '20px', color: "#000", fontWeight: 'bolder' }}> {artl.title}</div>
+                      <div className='mt-20px text-20px color-#000 font-bold'> {artl.title}</div>
                       <div className='point'></div>
                       <div className='time'>{artl.create_time}</div>
                     </div>
