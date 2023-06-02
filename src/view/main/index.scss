@@ -12,7 +12,7 @@ $breakpoints: (
         $min: nth($bp, 1);
         $max: nth($bp, 2);
 
-        @media (min) and ($max) {
+        @media ($min) and ($max) {
             @content;
         }
     }
