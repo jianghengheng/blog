@@ -12,7 +12,7 @@ $breakpoints: (
         $min: nth($bp, 1);
         $max: nth($bp, 2);
 
-        @media (min) and ($max) {
+        @media (min-width:$min) and (max-width:$max) {
             @content;
         }
     }
@@ -23,4 +23,3 @@ $breakpoints: (
         }
     }
 }
-@import url('../view/main//index.scss');

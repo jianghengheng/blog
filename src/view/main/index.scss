@@ -1,34 +1,15 @@
-$breakpoints: (
-    'phone':(320px, 480px),
-    'ipad':(481px, 768px),
-    'notebook':(769px, 1024px),
-    'desktop':(1025px, 1200px),
-    'tv':1201px
-);
-@mixin respond-to($breakname) {
-    $bp: map-get($breakpoints, $breakname);
 
-    @if(type-of($bp)=='list') {
-        $min: nth($bp, 1);
-        $max: nth($bp, 2);
-
-        @media ($min) and ($max) {
-            @content;
-        }
-    }
-
-    @else {
-        @media (min-width:$bp) {
-            @content;
-        }
-    }
-}
 .trm-banner {
+    @include respond-to('tv') {
+        height: 560px
+    };
+    @include respond-to('ipad') {
+        height: 300px
+    };
     @include respond-to('phone') {
-        height: 100px
+      display: none
     };
     width: 100%;
-   
     position: relative;
     z-index: 1;
     overflow: hidden;

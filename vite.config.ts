@@ -22,6 +22,11 @@ export default defineConfig(config=>{
       }
     },
     css:{
+      preprocessorOptions:{
+        scss:{
+          additionalData:'@import "./src/style/common.scss";'
+        }
+      },
       postcss:{
         plugins:[
           // postCssPxToRem({
@@ -37,7 +42,7 @@ export default defineConfig(config=>{
         presetAttributify(),
         presetIcons()],
     })],
-	
+
     server: {
 			host: '0.0.0.0',
 			port: 3300,
