@@ -1,6 +1,34 @@
+$breakpoints: (
+    'phone':(320px, 480px),
+    'ipad':(481px, 768px),
+    'notebook':(769px, 1024px),
+    'desktop':(1025px, 1200px),
+    'tv':1201px
+);
+@mixin respond-to($breakname) {
+    $bp: map-get($breakpoints, $breakname);
+
+    @if(type-of($bp)=='list') {
+        $min: nth($bp, 1);
+        $max: nth($bp, 2);
+
+        @media (min) and ($max) {
+            @content;
+        }
+    }
+
+    @else {
+        @media (min-width:$bp) {
+            @content;
+        }
+    }
+}
 .trm-banner {
+    @include respond-to('phone') {
+        height: 100px
+    };
     width: 100%;
-    height: 560px;
+   
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -13,7 +41,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: top;
     }
 
     .trm-banner-content {
@@ -116,7 +143,7 @@
     }
 
     .right {
-        width: 70%;
+        width: 66%;
         box-sizing: border-box;
         padding: 0 40px;
         margin-top: -80px;
@@ -182,11 +209,13 @@
             border-radius: 10px;
             margin-bottom: 40px;
             box-shadow: rgba(0, 0, 0, .15);
-            .img{
+
+            .img {
                 width: 100%;
-                 height: 215px;
+                height: 215px;
             }
-            .title{
+
+            .title {
                 padding: 40px;
                 box-sizing: border-box;
             }
