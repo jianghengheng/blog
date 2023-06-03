@@ -8,11 +8,14 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '~/src/store'
 import { GetArticle } from '~/src/api/article'
-
+import './index.scss'
 // 主页
 function Main() {
   const [ArticleList, setArticleList] = useState<any>([])
+  const [screenWidth, setscreenWidth]=useState<number>(0)
   useEffect(() => {
+     
+      setscreenWidth( window.screen.width)
     GetArticle().then(res => {
 
       setArticleList(res.data)
@@ -20,14 +23,14 @@ function Main() {
 
     })
   }, [])
-  const navigate = useNavigate()
+    const navigate = useNavigate()
   const init = useSelector((state: RootState) => state.countReducer)
   const skipCagegory = () => {
-    navigate('/cagegory')
-  }
-  return (
+      navigate('/cagegory')
+    }
+    return (
     <div>
-      <Index>
+      <Index showInfo={screenWidth>480}>
         <div className='container'>
           <div className='left'></div>
           <div className='right'>
@@ -43,13 +46,13 @@ function Main() {
               ))}
             </div>
             <div className='mb-20px flex items-center'>
-              <h5 className='w-150px text-26px color-#000' >最近发布</h5>
+              <h5 className='w-150px text-26px color-#000 recently' >最近发布</h5>
               <div className='point'></div>
             </div>
-            <Row >
-             
+            <Row className='rowp'>
+
               {ArticleList?.map((artl: any, index: number) => (
-                <Col key={artl.id} span={11} offset={index % 2 == 0 ? 0 : 2}>
+                <Col key={artl.id} span={screenWidth<=480?24:11} offset={screenWidth<=480?0:index % 2 == 0 ? 0 : 2}>
                   <div className='Card' onClick={() => navigate('/article', {
                     state: {
                       id: artl.id
@@ -79,7 +82,7 @@ function Main() {
 
       </Index>
     </div>
-  )
+    )
 }
 
-export default Main
+    export default Main

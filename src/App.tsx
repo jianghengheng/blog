@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { useRoutes } from 'react-router-dom'
 
 
 
 import routers from './router'
-import { fetchHomeMultidataAction } from './store/reducer/countReducer'
+import { fetchHomeMultidataAction,setisphone } from './store/reducer/countReducer'
+import { RootState } from './store'
 
 const baseSize = 16
 let remScale;
@@ -40,6 +41,7 @@ function App() {
   const dispath = useDispatch()
   const addmodle=useRef()
   useEffect(() => {
+    dispath(setisphone(window.screen.width))
     // 获取分类数据
     dispath((fetchHomeMultidataAction() as any))
   }, [])

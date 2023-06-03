@@ -6,12 +6,12 @@ export interface CounterState {
   value: number,
   infoList: any,
   category: any,
-  isphone:boolean
+  isphone:number
 }
 
 const initialState: CounterState = {
   value: 0,
-  isphone:false,
+  isphone:0,
   category: [],
   infoList: [],
 
@@ -34,6 +34,9 @@ export const counterSlice = createSlice({
     },
     decrement: (state) => {
       state.value -= 1
+    },
+    setisphone:(state,action: PayloadAction<number>)=>{
+      state.isphone=action.payload
     },
     incrementByAmount: (state, action: PayloadAction<number>) => {
       state.value += action.payload
@@ -58,6 +61,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { increment, decrement, incrementByAmount ,setisphone} = counterSlice.actions
 
 export default counterSlice.reducer

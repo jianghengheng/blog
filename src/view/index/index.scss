@@ -1,0 +1,67 @@
+ .container .right {
+
+     @include respond-to('phone') {
+         // display: none
+         width: 100%;
+         margin-top: 30px;
+         padding: 0 20px;
+     }
+
+     ;
+
+     @include respond-to('ipad') {
+         // display: none
+         width: 100%;
+         margin-top: -50px;
+     }
+
+     ;
+
+     @include respond-to('notebook') {
+         // display: none;
+         width: 100%;
+         margin-top: -50px;
+     }
+ }
+
+ .container {
+     @include respond-to('phone') {
+         width: 100%
+     };
+     .containerinfo{
+        .InfoList{
+            @include respond-to('phone') {
+                padding: 20px!important;
+                margin-bottom: 20px!important;
+                //    display: none!important;
+                };
+        }
+      
+     }
+ }
+
+ .container .left {
+     @include respond-to('phone') {
+         display: none
+     }
+
+     ;
+
+     @include respond-to('ipad') {
+         display: none
+     }
+
+     ;
+
+     @include respond-to('notebook') {
+         display: none;
+
+     }
+ }
+
+ .recently {
+
+      @include respond-to('phone'){
+        font-size: 20px;
+      }
+ }

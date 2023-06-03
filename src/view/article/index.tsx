@@ -26,7 +26,7 @@ function Article() {
     // setArticle(count1.category)
     return (
         <div>
-            <Index title={articleInfo.title}>  <div className='container'>
+            <Index showInfo={window.screen.width>480} title={articleInfo.title}>  <div className='container'>
                 <div className='left'></div>
                 <div className='rightart'>
                     <Row gutter={24}>

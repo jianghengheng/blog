@@ -18,6 +18,8 @@ function Cagegory() {
     const init = useSelector((state: RootState) => state.countReducer)
 const [articleList,setArticleList]=useState([])
 useEffect(()=>{
+    console.log(init.isphone,787878);
+    
     GetArticleByCategoryId(init.category[0]?.id).then(res=>{
         setArticleList(res.data)
     })
@@ -29,7 +31,7 @@ useEffect(()=>{
     }
     return (
         <div>
-            <Index>  <div className='container'>
+            <Index showInfo={init.isphone>480}>  <div className='container'>
                 <div className='left'></div>
                 <div className='right'>
 
@@ -58,7 +60,7 @@ useEffect(()=>{
                     </div>
                     <Row >
                     {articleList?.map((artl: any, index: number) => (
-                <Col  key={artl.id} span={11} offset={index % 2 == 0 ? 0 : 2}>
+                <Col  key={artl.id} span={init.isphone<=480?24:11} offset={init.isphone<=480?0:index % 2 == 0 ? 0 : 2}>
                   <div className='Card' onClick={() => navigate('/article',{
                     state:{
                       id:artl.id
@@ -69,8 +71,8 @@ useEffect(()=>{
                       <img width={"100%"} height={"100%"} src={`/api/static/${artl.fileId}`} alt="" />
                     </div>
                     <div className='title'>
-                      <h5>{artl.categoryName}</h5>
-                      <div className='mt-20px text-20px color-#fff font-bold'> {artl.title}</div>
+                      <h5>{artl.category}</h5>
+                      <div className='mt-20px text-20px  font-bold'>{artl.title}</div>
                       <div className='point'></div>
                       <div className='time'>{artl.create_time}</div>
                     </div>

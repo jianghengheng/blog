@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const { Header, Content, Footer } = Layout;
 
 const App: React.FC<any> = (props) => {
+    const {showInfo=false}=props
     const navigate = useNavigate()
 
 
@@ -29,7 +30,7 @@ const App: React.FC<any> = (props) => {
     }
     return (
         <Layout className='rd-10px bgc-#f4f5f7 h-100vh overflow-y-auto'>
-            <UserInfo scrolltop={scrollTop}></UserInfo>
+          {showInfo?<UserInfo scrolltop={scrollTop}></UserInfo>:<></>}  
             <Header className='bd-10px bgc-#fff w-100%'  style={{ position: 'fixed', top: 0, zIndex: 2,  boxShadow: '0 2px 4px 0 rgba(0,0,0,.15)' }}>
 
 
@@ -42,7 +43,7 @@ const App: React.FC<any> = (props) => {
                     }))}
                 />
             </Header>
-            <Content className="site-layout pt-0 pb-0 pr-50px pl-50px'" >
+            <Content className="site-layout pt-0 pb-0 pr-50px pl-50px" >
                 <div className='trm-banner'>
                     <video data-scroll data-scroll-direction data-scroll-speed autoPlay loop muted playsInline className='trm-banner-cover trm-active-el'>
                         <source src="//cdn.moji.com/websrc/video/autumn20190924.mp4" type="video/mp4; " />
