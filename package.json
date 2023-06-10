@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
+    "@ant-design/icons": "^5.1.4",
     "@reduxjs/toolkit": "^1.9.1",
     "@uiw/react-md-editor": "^3.23.0",
     "@wangeditor/editor": "^5.1.23",
