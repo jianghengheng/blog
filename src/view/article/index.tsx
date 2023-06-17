@@ -3,21 +3,37 @@ import { Button, Card, Col, Row } from 'antd'
 import Index from '../main/index'
 import './index.scss'
 import { useState, useEffect, memo } from 'react'
-
+import { GetCommonByArticeleId } from '~/src/api/comment/index'
 import { useLocation } from 'react-router-dom'
 import { GetArticleById } from '~/src/api/article'
 import MDEditor from '@uiw/react-md-editor';
 import Comment from '~/src/components/comment/index'
 // 文章页面
+interface CommentType {
+    articleId: number
+    children: CommentType[]
+    content: string
+    id: number
+    parentId: null | number
+    praiseNum: number
+    readNum: number
+    releaseTime: string
+    userId: null | number
+}
 function Article() {
     const { state: { id } } = useLocation()
-
+    const [commentList, setCommentList] = useState<CommentType[]>([])
     const [articleInfo, setArticleInfo] = useState<any>({
         creatTime: "",
         content: "",
         title: ""
     })
     useEffect(() => {
+        GetCommonByArticeleId(id).then(res => {
+            console.log(res);
+            setCommentList(res.data)
+
+        })
         GetArticleById(id).then((res) => {
             console.log(res.data);
             setArticleInfo(res.data)
@@ -26,7 +42,7 @@ function Article() {
     // setArticle(count1.category)
     return (
         <div>
-            <Index showInfo={window.screen.width>480} title={articleInfo.title}>  <div className='container'>
+            <Index showInfo={window.screen.width > 480} title={articleInfo.title}>  <div className='container'>
                 <div className='left'></div>
                 <div className='rightart'>
                     <Row gutter={24}>
@@ -60,7 +76,18 @@ function Article() {
                     <Card title={articleInfo.title}>
                         <MDEditor.Markdown source={articleInfo?.content} style={{ whiteSpace: 'pre-wrap' }} />
                     </Card>
-                    <Comment articleId={id}></Comment>
+                    <Card title='评论' className='mb-15px'>
+
+                        {
+                            commentList.map(res => {
+                                return <Comment parentId={res.parentId}  key={res.id} commonData={res} articleId={id}></Comment>
+                            })
+
+                        }
+
+                    </Card >
+
+
                 </div>
 
 

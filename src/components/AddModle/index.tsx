@@ -91,7 +91,7 @@ function AddModal(props: any, ref: any) {
         if (info.file.status === 'done') {
             // response
             setLoading(false);
-            setImageUrl(`/api/static/${info.file.response}`);
+            setImageUrl(`/api/${info.file.response}`);
 
             setArticleData({ ...articleData, ...{ fileId: info.file.response } })
         }

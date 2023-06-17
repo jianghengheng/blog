@@ -68,7 +68,7 @@ useEffect(()=>{
                   })}>
                    
                     <div className='img'>
-                      <img width={"100%"} height={"100%"} src={`/api/static/${artl.fileId}`} alt="" />
+                      <img width={"100%"} height={"100%"} src={`/api/${artl.fileId}`} alt="" />
                     </div>
                     <div className='title'>
                       <h5>{artl.category}</h5>
