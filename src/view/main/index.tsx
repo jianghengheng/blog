@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const { Header, Content, Footer } = Layout;
 
 const App: React.FC<any> = (props) => {
-    const {showInfo=false}=props
+    const {showInfo=false,showBanner=true}=props
     const navigate = useNavigate()
 
 
@@ -44,7 +44,7 @@ const App: React.FC<any> = (props) => {
                 />
             </Header>
             <Content className="site-layout pt-0 pb-0 pr-50px pl-50px" >
-                <div className='trm-banner'>
+              {showBanner?<div className='trm-banner'>
                     <video data-scroll data-scroll-direction data-scroll-speed autoPlay loop muted playsInline className='trm-banner-cover trm-active-el'>
                         <source src="//cdn.moji.com/websrc/video/autumn20190924.mp4" type="video/mp4; " />
                     </video>
@@ -77,7 +77,7 @@ const App: React.FC<any> = (props) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>:<></>}  
                 {props.children}
 
             </Content>

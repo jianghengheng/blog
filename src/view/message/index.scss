@@ -1,0 +1,17 @@
+.content {
+  @include respond-to("ipad") {
+    width: 70%;
+    margin: auto;
+  }
+
+  @include respond-to("notebook") {
+    width: 80%;
+    margin: auto;
+  }
+
+  @include respond-to("desktop") {
+  }
+
+  @include respond-to("phone") {
+  }
+}

@@ -5,6 +5,7 @@ const User = lazy(() => import("../view/userinfo/index"))
 const Cagegory = lazy(() => import("../view/category/index"))
 const Article = lazy(() => import("../view/article/index"))
 const Resume = lazy(() => import("../view/resume/index"))
+const Message = lazy(() => import("../view/message/index"))
 const routers = [
     {
         path: "/",
@@ -42,6 +43,13 @@ const routers = [
         path: "/resume",
         element: <React.Suspense fallback={<div>Loading....</div>}>
             <Resume></Resume>
+        </React.Suspense>,
+
+    },
+    {
+        path: "/message",
+        element: <React.Suspense fallback={<div>Loading....</div>}>
+            <Message></Message>
         </React.Suspense>,
 
     },
