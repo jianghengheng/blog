@@ -1,15 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Card, Col, Layout, Menu, Row, theme } from 'antd';
-import PDF from 'react-pdf-js';
-import resume from '../../../public/jh.pdf'
+import { Button, Card, Col, Row } from "antd";
+import Index from "../main/index";
 
-const App: React.FC<any> = (props) => {
+import { useState, useEffect, memo } from "react";
 
-    return (
-        <Card>
-            <PDF file={resume} />
-        </Card>
-    );
-};
+import MDEditor from "@uiw/react-md-editor";
+import { getResume } from "~/src/api/resume";
 
-export default App;
+// 文章页面
+
+function Resume() {
+  useEffect(() => {
+    getResume().then((res) => {
+      console.log(res);
+    });
+  }, []);
+  return (
+    <div >
+      <Index showBanner={false}>
+      <div className="mt-60px">
+      <MDEditor.Markdown source="111" style={{ whiteSpace: "pre-wrap", background:"#fff" }} />
+      </div>
+    
+
+      </Index>
+     
+    </div>
+  );
+}
+
+export default memo(Resume);
