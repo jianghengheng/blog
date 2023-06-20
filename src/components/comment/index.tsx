@@ -13,7 +13,8 @@ import { RootState } from '~/src/store';
 interface Props {
     articleId: string | number | undefined
     parentId: null | number
-    commonData: Comment
+    commonData: Comment,
+    getlist:Function
 }
 interface Comment {
     articleId: number
@@ -26,7 +27,7 @@ interface Comment {
     releaseTime: string
     userId: null | number
 }
-function Commont({ articleId, commonData, parentId }: Props) {
+function Commont({ articleId, commonData, parentId ,getlist}: Props) {
     const dispath = useDispatch()
     const {commonId} = useSelector((state: RootState) => state.countReducer)
     const [commentData, setCommentData] = useState<{
@@ -70,8 +71,6 @@ function Commont({ articleId, commonData, parentId }: Props) {
         })
     }
     const addCommentdata = async (item: Comment) => {
-        console.log(item);
-return
         const commentDataInfo = {
             content: commentContent,
             releaseTime: dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss'),
@@ -82,11 +81,13 @@ return
 
         await addComment(commentDataInfo)
         setCommenContent('')
+        dispath(setcommonId(null))
         setCommentData({
             content: '',
             releaseTime: '',
             articleId: undefined,
         })
+        getlist()
     }
     const [commentId, setCommenId] = useState<string | number>('')
 
@@ -106,7 +107,7 @@ return
     const nestedComments = (commonData.children || [])
         .map((item, index) => {
             return (
-                <Commont parentId={item.parentId} key={item.id} articleId={articleId} commonData={item}
+                <Commont getlist={getlist} parentId={item.parentId} key={item.id} articleId={articleId} commonData={item}
                 />
             );
         });

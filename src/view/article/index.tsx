@@ -29,16 +29,19 @@ function Article() {
         title: ""
     })
     useEffect(() => {
-        GetCommonByArticeleId(id).then(res => {
-            console.log(res);
-            setCommentList(res.data)
-
-        })
+        getlist()
         GetArticleById(id).then((res) => {
             console.log(res.data);
             setArticleInfo(res.data)
         })
     }, [])
+    const getlist=()=>{
+        GetCommonByArticeleId(id).then(res => {
+            console.log(res);
+            setCommentList(res.data)
+
+        })
+    }
     // setArticle(count1.category)
     return (
         <div>
@@ -80,7 +83,7 @@ function Article() {
 
                         {
                             commentList.map(res => {
-                                return <Comment parentId={res.parentId}  key={res.id} commonData={res} articleId={id}></Comment>
+                                return <Comment getlist={()=>getlist()} parentId={res.parentId}  key={res.id} commonData={res} articleId={id}></Comment>
                             })
 
                         }
