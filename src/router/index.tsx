@@ -9,6 +9,7 @@ const Message = lazy(() => import("../view/message/index"))
 const routers = [
     {
         path: "/",
+        
         element: <Navigate to={'/user'}></Navigate>
     },
     {

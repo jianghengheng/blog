@@ -2,17 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Col, Layout, Menu, Row, theme } from 'antd';
 import './index.scss'
 import UserInfo from '~/src/components/userInfo';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation, To} from 'react-router-dom';
+import { routes } from '~/src/utils/emojs';
 
 const { Header, Content, Footer } = Layout;
 
 const App: React.FC<any> = (props) => {
     const {showInfo=false,showBanner=true}=props
     const navigate = useNavigate()
+    const location = useLocation()
 
 
     useEffect(() => {
+    
+      console.log(location);
+      if(location.pathname=='/index'||location.pathname=='/user'){
+        setCurrent('/')
+
+      }else{
+        setCurrent(location.pathname)
+
+      }
         return () => {
+        
+         
             window.removeEventListener('scroll', () => { })
         }
     }, [])
@@ -28,6 +41,12 @@ const App: React.FC<any> = (props) => {
     const skipCagegory = () => {
         navigate('/cagegory')
     }
+    const [current, setCurrent] = useState<any>();
+    const menuselect=(value: { key: To; })=>{
+      
+        navigate(value.key)
+        // setCurrent(value.key)
+    }
     return (
         <Layout className='rd-10px bgc-#f4f5f7 h-100vh overflow-y-auto'>
           {showInfo?<UserInfo scrolltop={scrollTop}></UserInfo>:<></>}  
@@ -36,10 +55,11 @@ const App: React.FC<any> = (props) => {
 
                 <Menu
                     mode="horizontal"
-                    defaultSelectedKeys={['2']}
-                    items={new Array(3).fill(null).map((_, index) => ({
-                        key: String(index + 1),
-                        label: `nav ${index + 1}`,
+                    onClick={menuselect}
+                    selectedKeys={[current]}
+                    items={routes.map((_, index) => ({
+                        key: _.path,
+                        label: _.title,
                     }))}
                 />
             </Header>

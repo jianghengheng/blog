@@ -73,8 +73,15 @@
 
     .category {
         padding: 0 20px;
-
+       
         .cateName {
+            @include respond-to('phone') {
+                font-size: 15px;
+                margin-top: 0px;
+                /* height: 20px; */
+                /* line-height: 8px; */
+                padding-left: 15px;
+              }
             cursor: pointer;
             position: relative;
             list-style-type: none;

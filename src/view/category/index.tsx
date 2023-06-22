@@ -34,7 +34,6 @@ useEffect(()=>{
             <Index showInfo={init.isphone>480}>  <div className='container'>
                 <div className='left'></div>
                 <div className='right'>
-
                     <Row >
                         <Col span={24}>
                             <div className='categoryInfo'>

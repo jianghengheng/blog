@@ -9,16 +9,15 @@ import { getResume } from "~/src/api/resume";
 // 文章页面
 
 function Resume() {
+  const [content,setContent]=useState<string>('')
   useEffect(() => {
-    getResume().then((res) => {
-      console.log(res);
-    });
+
   }, []);
   return (
     <div >
-      <Index showBanner={false}>
+      <Index >
       <div className="mt-60px">
-      <MDEditor.Markdown source="111" style={{ whiteSpace: "pre-wrap", background:"#fff" }} />
+    11
       </div>
     
 
