@@ -40,7 +40,13 @@ function App() {
   // http://localhost:3000/
   console.log(document.documentElement.clientWidth );
   if(document.documentElement.clientWidth<=400){
-  window.open('http://192.168.2.124:3000/',"_self")
+   
+    if (process.env.NODE_ENV === "development") {
+      window.open('http://192.168.2.124:3000/',"_self")
+    }else {
+      window.open('http://www.jiangheng.cc:8080/',"_self")
+    }
+
   }
   const router = useRoutes(routers)
   const dispath = useDispatch()
