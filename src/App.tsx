@@ -37,6 +37,11 @@ console.log(window.screen.width);
 
 
 function App() {
+  // http://localhost:3000/
+  console.log(document.documentElement.clientWidth );
+  if(document.documentElement.clientWidth<=400){
+  window.open('http://192.168.2.124:3000/',"_self")
+  }
   const router = useRoutes(routers)
   const dispath = useDispatch()
   const addmodle=useRef()

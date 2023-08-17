@@ -12,25 +12,21 @@ import './index.scss'
 // 主页
 function Main() {
   const [ArticleList, setArticleList] = useState<any>([])
-  const [screenWidth, setscreenWidth]=useState<number>(0)
+  const [screenWidth, setscreenWidth] = useState<number>(0)
   useEffect(() => {
-     
-      setscreenWidth( window.screen.width)
+    setscreenWidth(window.screen.width)
     GetArticle().then(res => {
-
       setArticleList(res.data)
-
-
     })
   }, [])
-    const navigate = useNavigate()
+  const navigate = useNavigate()
   const init = useSelector((state: RootState) => state.countReducer)
   const skipCagegory = () => {
-      navigate('/cagegory')
-    }
-    return (
+    navigate('/cagegory')
+  }
+  return (
     <div>
-      <Index showInfo={screenWidth>480}>
+      <Index showInfo={screenWidth > 480}>
         <div className='container'>
           <div className='left'></div>
           <div className='right'>
@@ -50,9 +46,8 @@ function Main() {
               <div className='point'></div>
             </div>
             <Row className='rowp'>
-
               {ArticleList?.map((artl: any, index: number) => (
-                <Col key={artl.id} span={screenWidth<=480?24:11} offset={screenWidth<=480?0:index % 2 == 0 ? 0 : 2}>
+                <Col key={artl.id} span={screenWidth <= 480 ? 24 : 11} offset={screenWidth <= 480 ? 0 : index % 2 == 0 ? 0 : 2}>
                   <div className='Card' onClick={() => navigate('/article', {
                     state: {
                       id: artl.id
@@ -82,7 +77,7 @@ function Main() {
 
       </Index>
     </div>
-    )
+  )
 }
 
-    export default Main
+export default Main

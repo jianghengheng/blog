@@ -1,15 +1,15 @@
 
 import { Button, Form, Input, Modal, Select, message, Upload, Row, Col } from 'antd'
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
+import { useState, useEffect, forwardRef, useImperativeHandle, useRef, useCallback } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 // import './index.scss'
-
+import * as editHelper from "~/src/utils/edit"
 import { RootState } from '~/src/store'
 import { useSelector } from 'react-redux'
 import ImgCrop from 'antd-img-crop';
 import { RcFile, UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload'
 import { AddArticle } from '~/src/api/article';
-import MDEditor from '@uiw/react-md-editor';
+import MDEditor, { commands, comment } from "@uiw/react-md-editor";
 // import Vditor from "vditor";
 function AddModal(props: any, ref: any) {
     const init = useSelector((state: RootState) => state.countReducer)
@@ -20,7 +20,7 @@ function AddModal(props: any, ref: any) {
 
     const [form] = Form.useForm();
     // 及时销毁 editor
-  
+
     useEffect(() => {
         setArticleData({ ...articleData, content: value })
     }, [value])
@@ -34,11 +34,13 @@ function AddModal(props: any, ref: any) {
     }))
     // 添加文章
     const handleOk = async () => {
-    
+
         const values = await form.validateFields();
-        setArticleData({...articleData, ...{
-            content: value
-        }})
+        setArticleData({
+            ...articleData, ...{
+                content: value
+            }
+        })
         await AddArticle(articleData)
         message.success('添加成功')
         setValue('')
@@ -51,6 +53,11 @@ function AddModal(props: any, ref: any) {
         })
         setOpen(false)
     }
+    const editorRef: any = useRef(null);
+    const inputRef: any = useRef(null);
+    const textApiRef: any = useRef(null);
+    const [insertImg, setInsertImg] = useState("");
+
     /**上传图片展示 */
     const [imageUrl, setImageUrl] = useState<string>();
     /**加载 */
@@ -113,6 +120,49 @@ function AddModal(props: any, ref: any) {
             <div className='mb-8px'>Upload</div>
         </div>
     );
+    const inputImageHandler = useCallback(async (event: any) => {
+        if (event.target.files && event.target.files.length === 1) {
+console.log(event.target.files[0]);
+
+            setInsertImg("");
+            await editHelper.onImageUpload(event.target.files[0], textApiRef.current);
+        }
+    }, []);
+
+
+    const imgBtn = (inputRef: { current: { click: () => void; }; }, textApiRef: { current: any; }) => ({
+        name: "Text To Image",
+        keyCommand: "text2image",
+        render: (command: { groupName: any; }, disabled: boolean | undefined, executeCommand: (arg0: any, arg1: any) => void) => {
+            return (
+                <button
+                    type="button"
+                    aria-label="Insert title3"
+                    disabled={disabled}
+                    onClick={() => {
+                        executeCommand(command, command.groupName);
+                    }}
+                >
+                    <svg width="12" height="12" viewBox="0 0 20 20">
+                        <path
+                            fill="currentColor"
+                            d="M15 9c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4-7H1c-.55 0-1 .45-1 1v14c0 .55.45 1 1 1h18c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm-1 13l-6-5-2 2-4-5-4 8V4h16v11z"
+                        ></path>
+                    </svg>
+                </button>
+            );
+        },
+        execute: (state: any, api: any) => {
+            inputRef.current.click();
+            textApiRef.current = api;
+        }
+    });
+
+    const editor: any = {
+        editChoice: (inputRef: { current: { click: () => void; }; }, textApiRef: { current: any; }) => imgBtn(inputRef, textApiRef),
+
+
+    }
     return (
 
         <Modal
@@ -166,7 +216,7 @@ function AddModal(props: any, ref: any) {
                         label="上传文件"
                         name="file"
                     >
-                        <ImgCrop rotate>
+                        <ImgCrop >
                             <Upload
                                 name="file"
                                 listType="picture-card"
@@ -176,7 +226,7 @@ function AddModal(props: any, ref: any) {
                                 beforeUpload={beforeUpload}
                                 onChange={handleChange}
                             >
-                                {imageUrl ? <img src={imageUrl} alt="avatar" className='w-100%'  /> : uploadButton}
+                                {imageUrl ? <img src={imageUrl} alt="avatar" className='w-100%' /> : uploadButton}
                             </Upload>
                         </ImgCrop>
                     </Form.Item></Col>
@@ -185,10 +235,23 @@ function AddModal(props: any, ref: any) {
 
 
             </Form>
-            <MDEditor
-                value={value}
-                onChange={setValue}
+            <input
+                ref={inputRef}
+                className="hidden"
+                type="file"
+                accept=".jpg,.png,.jpeg,.jfif,.gif"
+                name="avatar"
+                value={insertImg}
+                onChange={inputImageHandler}
             />
+            <MDEditor
+                ref={editorRef}
+                value={value}
+                onChange={(e) => setValue(e)}
+                commands={[editor.editChoice(inputRef, textApiRef), commands.link, commands.bold, commands.code, commands.codeBlock, commands.divider, commands.title, commands.hr, commands.italic, commands.unorderedListCommand, commands.title, commands.title6, commands.title5, commands.title4, commands.title3, commands.title2, commands.title1, commands.title, commands.strikethrough, commands.quote]}
+                preview="edit"
+            />
+
             {/* <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} /> */}
 
         </Modal>
@@ -197,6 +260,7 @@ function AddModal(props: any, ref: any) {
 }
 
 export default forwardRef(AddModal)
+
 
 
 
