@@ -1,0 +1,41 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [master] # 当 main 分支收到推送时触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 检出代码
+      - uses: actions/checkout@v3
+
+      # 设置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      # 安装依赖
+      - name: Install Dependencies
+        run: npm install
+
+      # 构建
+      - name: Build
+        run: npm run build
+
+      # 部署到服务器
+      - name: Deploy to Server
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        with:
+          host: 139.159.141.41
+          user: root
+          pass: JHeng1997.
+          connect_timeout: 10s
+          first_ssh: |
+            rm -rf /var/www/html/*
+          scp: |
+            './dist/*' => /var/www/html/
+          last_ssh: |
+            chmod -R 755 /var/www/html
