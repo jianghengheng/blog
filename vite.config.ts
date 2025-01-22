@@ -4,6 +4,7 @@ import path from 'path';
 import Unocss from 'unocss/vite';
 import { presetUno, presetAttributify, presetIcons } from 'unocss'
 import postCssPxToRem from "postcss-pxtorem"
+
 function getSrcPath(srcName = 'src') {
   const rootPath =path.resolve(process.cwd());
 
@@ -18,7 +19,8 @@ export default defineConfig(config=>{
     resolve: {
       alias: {
         '~':  path.resolve(process.cwd()),
-        '@': getSrcPath()
+        '@': path.resolve(process.cwd(), 'src'),
+        'antd/es': path.resolve(process.cwd(), 'node_modules/antd/es'),
       }
     },
     css:{
@@ -56,6 +58,14 @@ export default defineConfig(config=>{
 				}
 			}
 		},
+    build: {
+      rollupOptions: {
+        external: ['antd/es/locale-provider/LocaleReceiver'],
+      },
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      }
+    }
   }
 })
 
