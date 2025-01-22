@@ -20,7 +20,7 @@ export default defineConfig(config=>{
       alias: {
         '~':  path.resolve(process.cwd()),
         '@': path.resolve(process.cwd(), 'src'),
-        'antd/es': path.resolve(process.cwd(), 'node_modules/antd/es'),
+      
       }
     },
     css:{
@@ -59,9 +59,7 @@ export default defineConfig(config=>{
 			}
 		},
     build: {
-      rollupOptions: {
-        external: ['antd/es/locale-provider/LocaleReceiver'],
-      },
+    
       commonjsOptions: {
         transformMixedEsModules: true,
       }

@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04 # 使用 Ubuntu 22.04 LTS
     steps:
       # 检出代码
       - uses: actions/checkout@v3
